@@ -1,12 +1,17 @@
 <?php
 
+namespace Models;
+
+use Config\DBConnect;
+
 class Task
 {
     private $pdo;
 
-    public function __construct($pdo)
+    public function __construct()
     {
-        $this->pdo = $pdo;
+        $dBConnect = new DBConnect();
+        $this->pdo = $dBConnect->db;
     }
 
     public function getAllTasks($page, $sort, $order)
@@ -17,7 +22,7 @@ class Task
         $offset = ($page - 1) * $limit;
         $stmt = $this->pdo->prepare("SELECT `id`, `username`, `email`, `text`, `completed`, `admin_edited` FROM tasks ORDER BY $sort $order LIMIT $limit OFFSET " . $offset);
         $stmt->execute();
-        $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $tasks = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         $total = $this->pdo->query("SELECT COUNT(*) FROM tasks")->fetchColumn();
         $page_count = ceil($total / $limit);
@@ -35,7 +40,7 @@ class Task
     {
         $stmt = $this->pdo->prepare("SELECT * FROM tasks WHERE id = $id");
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function updateTask($id, $username, $email, $text, $completed, $admin_edited)

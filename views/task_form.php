@@ -1,7 +1,7 @@
 <?php
 require_once("include/head.php");
 ?>
-    <h1><?=isset($task)? 'Редактирование задачи' : 'Создание задачи'?></h1>
+    <h1><?= isset($task) ? 'Редактирование задачи' : 'Создание задачи' ?></h1>
     <form method="POST">
         <div class="form-group">
             <label for="username">имя пользователя</label>
@@ -41,7 +41,7 @@ require_once("include/head.php");
         <?php endif; ?>
         <button type="submit"
                 class="btn btn-primary">
-            <?=isset($task)? 'Редактировать' : 'Создать'?>
+            <?= isset($task) ? 'Редактировать' : 'Создать' ?>
         </button>
     </form>
 <?php

@@ -1,14 +1,16 @@
 <?php
-require_once '../config/database.php';
-require_once '../models/Task.php';
+
+namespace Controllers;
+
+use Models\Task;
 
 class TaskController
 {
     private $taskModel;
 
-    public function __construct($pdo)
+    public function __construct()
     {
-        $this->taskModel = new Task($pdo);
+        $this->taskModel = new Task();
 
     }
 
@@ -25,11 +27,10 @@ class TaskController
     public function createTask()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Валидация и добавление задачи
             $username = htmlspecialchars(trim($_POST['username']));
             $email = htmlspecialchars(trim($_POST['email']));
             $text = htmlspecialchars(trim($_POST['text']));
-            $completed = 'Не выполнено';
+            $completed = 0;
 
             if ($this->taskModel->addTask($username, $email, $text, $completed)) {
                 header('Location: /todo-app/public/index.php?success=Задача создана');
@@ -47,7 +48,6 @@ class TaskController
             require '../views/task_form.php';
         }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Валидация и обновление задачи
             $username = htmlspecialchars(trim($_POST['username']));
             $email = htmlspecialchars(trim($_POST['email']));
             $text = htmlspecialchars(trim($_POST['text']));

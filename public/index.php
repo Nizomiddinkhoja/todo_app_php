@@ -1,16 +1,14 @@
 <?php
-require_once '../config/database.php';
-require_once '../controllers/TaskController.php';
-require_once '../controllers/AuthController.php';
+require_once '../vendor/autoload.php';
 
-
-
+use Controllers\TaskController;
+use Controllers\AuthController;
 
 if (!isset($_SESSION)) {
     session_start();
 }
 
-$controller = new TaskController($pdo);
+$controller = new TaskController();
 $authController = new AuthController();
 
 if (isset($_GET['action'])) {
