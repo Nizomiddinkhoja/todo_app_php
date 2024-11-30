@@ -21,7 +21,7 @@ class TaskController
         $order = isset($_GET['order']) ? $_GET['order'] : 'ASC';
 
         $data = $this->taskModel->getAllTasks($page, $sort, $order);
-        require '../views/task_list.php';
+        require 'views/task_list.php';
     }
 
     public function createTask()
@@ -33,10 +33,10 @@ class TaskController
             $completed = 0;
 
             if ($this->taskModel->addTask($username, $email, $text, $completed)) {
-                header('Location: /todo-app/public/index.php?success=Задача создана');
+                header('Location: /index.php?success=Задача создана');
             }
         }
-        require '../views/task_form.php';
+        require 'views/task_form.php';
     }
 
     public function editTask()
@@ -45,7 +45,7 @@ class TaskController
         $this->checkId();
         $task = $this->taskModel->getTask($_GET['id']);
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            require '../views/task_form.php';
+            require 'views/task_form.php';
         }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $username = htmlspecialchars(trim($_POST['username']));
@@ -55,7 +55,7 @@ class TaskController
             $admin_edited = (int)($task['text'] !== $text);
 
             if ($this->taskModel->updateTask($_GET['id'], $username, $email, $text, $completed, $admin_edited)) {
-                header('Location: /todo-app/public/index.php?success=Задача обновлена');
+                header('Location: /index.php?success=Задача обновлена');
             }
         }
     }
@@ -65,20 +65,20 @@ class TaskController
         $this->checkAuth();
         $this->checkId();
         $this->taskModel->deleteTask($_GET['id']);
-        header('Location: /todo-app/public/index.php?success=Задача удалена');
+        header('Location: /index.php?success=Задача удалена');
     }
 
     private function checkAuth()
     {
         if (!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
-            header('Location: /todo-app/public/index.php?action=login&error=Нужна авторизация');
+            header('Location: /index.php?action=login&error=Нужна авторизация');
         }
     }
 
     private function checkId()
     {
         if (!isset($_GET['id'])) {
-            header('Location: /todo-app/public/index.php');
+            header('Location: /index.php');
         }
     }
 }

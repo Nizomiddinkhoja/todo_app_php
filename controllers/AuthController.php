@@ -16,12 +16,12 @@ class AuthController
 
             if ($username == 'admin' && $password == '123') {
                 $_SESSION['logged_in'] = true;
-                header('Location: /todo-app/public/index.php');
+                header('Location: /index.php');
             } else {
                 $message = "Недействительные учетные данные";
             }
         }
-        require '../views/login.php';
+        require 'views/login.php';
     }
 
     public function logout()
@@ -37,7 +37,7 @@ class AuthController
             setcookie(session_name(), '', 0, '/');
             session_regenerate_id(true);
             $_SESSION['logged_in'] = '';
-            header('Location: /todo-app/public/index.php');
+            header('Location: /index.php');
         }
     }
 }
