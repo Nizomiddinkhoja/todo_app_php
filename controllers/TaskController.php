@@ -65,7 +65,7 @@ class TaskController
         $this->checkAuth();
         $this->checkId();
         $this->taskModel->deleteTask($_GET['id']);
-        require '../views/task_list.php';
+        header('Location: /todo-app/public/index.php?success=Задача удалена');
     }
 
     private function checkAuth()

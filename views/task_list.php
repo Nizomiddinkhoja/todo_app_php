@@ -60,7 +60,7 @@ require_once("include/head.php");
     </table>
 
 
-<?php if ($data['page_count'] > 1): ?>
+<?php if (isset($data['page_count']) && $data['page_count'] > 1): ?>
     <nav>
         <ul class="pagination">
             <?php for ($i = 1; $i <= $data['page_count']; $i++): ?>
