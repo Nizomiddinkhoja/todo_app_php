@@ -1,0 +1,10 @@
+.auth-btn-block {
+    position: absolute;
+    right: 0;
+    top: 10px;
+}
+
+.cut-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
